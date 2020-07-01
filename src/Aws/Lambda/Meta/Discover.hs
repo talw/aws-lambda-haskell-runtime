@@ -62,6 +62,6 @@ containsHandler :: Path Rel File -> IO Bool
 containsHandler file = do
   fileContents <- readFile $ toFilePath file
   lines fileContents
-    & filter (Text.isPrefixOf "handler :: " . Text.pack)
+    & filter ((\t -> Text.isPrefixOf "handler :: " t || t == "handler") . Text.pack)
     & (not . null)
     & pure
